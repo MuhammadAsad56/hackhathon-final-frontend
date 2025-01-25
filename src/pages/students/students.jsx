@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Navbar from "../../components/Header";
+// import Navbar from "../../components/Header";
 import axios from "axios";
 import { AppRoutes } from "../../constant/constant";
 import Cookies from "js-cookie";

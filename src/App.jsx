@@ -1,28 +1,29 @@
 import { useContext, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
-import Login from "./Login";
-import Admin from "./pages/admin/admin";
-import User from "./pages/user/user";
-import Teacher from "./pages/teacher/teacher";
-import { AuthContext } from "./context/AuthContext";
 import Cookies from "js-cookie";
-import Students from "./pages/students/students";
-
+import SignUpPage from "./pages/auth/signup";
+import LoginPage from "./pages/auth/login";
+import HomePage from "./pages/homepage/HomePage";
+import { AuthContext } from "./context/AuthContext";
+import NoDataFound from "./components/No-data-found";
+import { ToastContainer } from "react-toastify";
 function App() {
-  const { user } = useContext(AuthContext);
+   const { user } = useContext(AuthContext);  
 
-  console.log("user=>", user);
-  console.log("token=>", Cookies.get("token"));
   return (
+    <>
+       <ToastContainer />
     <Routes>
-      <Route path="/" element={user ? <Navigate to={"/user"} /> : <Login />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/" element={user ? <HomePage/> : <SignUpPage/>} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="*" element={<NoDataFound />} />
+      {/* <Route path="/admin" element={<Admin />} />
       <Route path="/user" element={user ? <Students /> : <Navigate to={"/"} />} />
-      <Route path="/teacher" element={<Teacher />} />
+      <Route path="/teacher" element={<Teacher />} /> */}
     </Routes>
+      </>
   );
 }
 

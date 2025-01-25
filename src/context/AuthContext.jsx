@@ -1,15 +1,17 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { AppRoutes } from "../constant/constant";
 export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     if (!user) {
       const token = Cookies.get("token");
+      console.log("token=>", token);
+      
       if (token) {
         getUser();
       }
@@ -25,7 +27,7 @@ export default function AuthContextProvider({ children }) {
       })
       .then((res) => {
         console.log("response from get my info API=>", res.data);
-        setUser(res.data.data);
+        setUser(res?.data?.data);
       })
       .catch((err) => console.log(err));
   };
@@ -35,3 +37,4 @@ export default function AuthContextProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
