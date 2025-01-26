@@ -6,12 +6,11 @@ export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
   const [user, setUser] = useState();
+  console.log("user=>", user);
 
   useEffect(() => {
     if (!user) {
       const token = Cookies.get("token");
-      console.log("token=>", token);
-      
       if (token) {
         getUser();
       }
@@ -26,7 +25,7 @@ export default function AuthContextProvider({ children }) {
         },
       })
       .then((res) => {
-        console.log("response from get my info API=>", res.data);
+        console.log("response from get my info API=>", res.data.data);
         setUser(res?.data?.data);
       })
       .catch((err) => console.log(err));

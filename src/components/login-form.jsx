@@ -40,7 +40,7 @@ export function LoginForm() {
         axios
         .post(AppRoutes.login, values)
         .then((res) => {
-          console.log("response from login API=>", res.data);  
+          console.log("response from login API=>", res.data.data);  
           Cookies.set("token", res?.data?.data?.token);
           setUser(res?.data?.data?.user);
           setIsLoading(false);
@@ -53,7 +53,7 @@ export function LoginForm() {
             theme: "dark",
           });
           form.reset();
-          navigate("/");
+          navigate("/dashboard");
         })
         .catch((error) => {           
           setIsLoading(false);
